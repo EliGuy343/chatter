@@ -1,9 +1,10 @@
 import './App.css';
+import Regsiter from './pages/Regsiter';
 
 function App() {
   return (
     <div className="App">
-      <h2>Test</h2>
+      <Regsiter/>
     </div>
   );
 }
