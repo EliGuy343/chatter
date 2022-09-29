@@ -1,5 +1,6 @@
 import { Box, Button, TextField, Typography } from '@mui/material'
 import TextsmsIcon from '@mui/icons-material/Textsms';
+import ImageIcon from '@mui/icons-material/Image';
 import React from 'react'
 
 const Regsiter = () => {
@@ -92,10 +93,23 @@ const Regsiter = () => {
               }}
             />
             <input
-              id="upload-photo"
-              name="upload-photo"
               type="file"
+              style={{
+                display:'none'
+              }}
+              id='file'
             />
+            <label htmlFor='file'>
+              <Box>
+                <Typography>Upload an Image</Typography>
+                <ImageIcon
+                  sx={{
+                    color:'#3180b5',
+                    fontSize:'32px'
+                  }}
+                />
+              </Box>
+            </label>
             <Button
               sx={{
                 backgroundColor:'#3180b5',
