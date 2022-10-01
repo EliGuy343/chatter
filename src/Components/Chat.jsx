@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import React from 'react'
+import ChatBar from './ChatBar';
 
 const Chat = () => {
   return (
@@ -8,7 +9,7 @@ const Chat = () => {
         flex:2
       }}
     >
-      Chat
+      <ChatBar/>
     </Box>
   )
 }
