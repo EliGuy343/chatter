@@ -6,6 +6,7 @@ const Search = () => {
       sx={{
         display:'flex',
         flexDirection:'column',
+        borderBottom:'2px dotted #555555'
       }}
     >
       <Box>
@@ -34,7 +35,14 @@ const Search = () => {
         }}
       >
         <Avatar alt='Kyle Katarn' src='/static/Kyle.jpg'/>
-        <Typography>Kyle Katarn</Typography>
+        <Typography
+          sx={{
+            fontSize:'15px',
+            fontWeight:'600'
+          }}
+        >
+          Kyle Katarn
+        </Typography>
       </Box>
     </Box>
   )
