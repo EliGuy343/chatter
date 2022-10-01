@@ -20,6 +20,7 @@ const Chats = () => {
           sx={{
             display:'flex',
             flexDirection:'column',
+            alignItems:'start'
 
           }}
         >
