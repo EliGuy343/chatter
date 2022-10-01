@@ -7,14 +7,23 @@ const Home = () => {
   return (
     <Box 
       sx={{
-        backgroundColor:'#a7bcff',
+        backgroundColor:'#191538',
         height:'100vh',
         display:'flex',
         alignItems:'center',
-        justifyContent:'center'
+        justifyContent:'center',
       }}
     >
-      <Box>
+      <Box
+        sx={{
+          border:'1px solid #4c4c4c',
+          borderRadius:'10px',
+          width:'65%',
+          height:'80%',
+          display:'flex',
+          overflow:'hidden'
+        }}
+      >
         <Sidebar/>
         <Chat/>
       </Box>
