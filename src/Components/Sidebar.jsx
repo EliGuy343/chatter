@@ -1,5 +1,6 @@
 import { Box } from '@mui/material'
 import React from 'react'
+import Navbar from './Navbar'
 
 const Sidebar = () => {
   return (
@@ -11,7 +12,7 @@ const Sidebar = () => {
         backgroundColor:'#394066'
       }}
     >
-      Sidebar
+      <Navbar/>
     </Box>
   )
 }
