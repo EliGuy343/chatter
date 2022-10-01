@@ -1,6 +1,7 @@
 import { Box } from '@mui/material'
 import React from 'react'
 import Navbar from './Navbar'
+import Search from './Search'
 
 const Sidebar = () => {
   return (
@@ -13,6 +14,7 @@ const Sidebar = () => {
       }}
     >
       <Navbar/>
+      <Search/>
     </Box>
   )
 }
