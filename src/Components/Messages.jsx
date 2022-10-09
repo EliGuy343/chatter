@@ -8,8 +8,8 @@ const Messages = () => {
       sx={{
         display:'flex',
         flexDirection:'column',
-        alignItems:'self-start',
         backgroundColor:'#24234a',
+        overflow:'scroll',
         padding:'10px',
         height:'calc(100% - 155px)',
       }}
