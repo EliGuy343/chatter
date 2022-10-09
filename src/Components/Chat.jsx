@@ -1,6 +1,8 @@
 import { Box } from '@mui/material';
 import React from 'react'
 import ChatBar from './ChatBar';
+import Input from './Input';
+import Messages from './Messages';
 
 const Chat = () => {
   return (
@@ -10,6 +12,8 @@ const Chat = () => {
       }}
     >
       <ChatBar/>
+      <Messages/>
+      <Input/>
     </Box>
   )
 }
