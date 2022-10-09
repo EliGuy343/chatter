@@ -1,6 +1,9 @@
 import { Avatar, Box, Typography } from '@mui/material'
 import React from 'react'
 
+//TODO: When it's the user message change color of message background,
+//JustifyContent to End and flexDirection to row-reverse
+
 const Message = () => {
   return (
     <Box
