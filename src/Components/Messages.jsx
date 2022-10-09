@@ -11,7 +11,7 @@ const Messages = () => {
         alignItems:'self-start',
         backgroundColor:'#24234a',
         padding:'10px',
-        height:'calc(100% - 155px)'
+        height:'calc(100% - 155px)',
       }}
     >
       <Message/>

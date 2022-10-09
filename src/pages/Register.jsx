@@ -3,7 +3,7 @@ import TextsmsIcon from '@mui/icons-material/Textsms';
 import ImageIcon from '@mui/icons-material/Image';
 import React from 'react'
 
-const Regsiter = () => {
+const Register = () => {
   return (
     <Box
       sx={{
@@ -135,4 +135,4 @@ const Regsiter = () => {
   )
 }
 
-export default Regsiter
+export default Register
