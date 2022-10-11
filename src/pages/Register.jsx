@@ -1,9 +1,68 @@
-import { Box, Button, TextField, Typography } from '@mui/material'
+import { Box, Button, TextField, Typography } from '@mui/material';
+import { auth,storage, db } from '../firebase';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import TextsmsIcon from '@mui/icons-material/Textsms';
 import ImageIcon from '@mui/icons-material/Image';
-import React from 'react'
+import React, { useState } from 'react'
+import {ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { doc, setDoc } from 'firebase/firestore';
 
 const Register = () => {
+  const [err, setErr] = useState(null); 
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const name = e.target[0].value;
+    const email = e.target[1].value;
+    const password = e.target[2].value;
+    const passwordConfirm = e.target[3].value;
+    const file = e.target[4].files[0];
+
+    try {
+      const res = await createUserWithEmailAndPassword(auth,email,password);
+      const storageRef = ref(storage, name);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log(`upload is ${progress} done`);
+          
+          switch(snapshot.state) {
+            case "paused":
+              console.log('upload is  paused');
+              break;
+            case "running":
+              console.log('upload is running');
+              break;
+          }
+        },
+        (err) => {
+          setErr(err);
+          console.log(err);
+        },
+        ()  => {
+          getDownloadURL(uploadTask.snapshot.ref)
+            .then(async (downloadURL) => {
+              await updateProfile(res.user, {
+                displayName:name,
+                photoURL:downloadURL,
+              })
+              await setDoc(doc(db,"users", res.user.uid), {
+                uid: res.user.uid,
+                displayName:name,
+                email,
+                photoURL: downloadURL
+              });
+            });
+        }
+      );
+    } catch (err) {
+      setErr(err);
+      console.log(err);
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -23,7 +82,7 @@ const Register = () => {
           boxShadow:"2px 0px 2px 0px"
         }}
       >
-        <form>
+        <form onSubmit={handleSubmit}>
           <Box 
             sx={{
               display:'flex', 
@@ -110,6 +169,7 @@ const Register = () => {
                 />
               </Box>
             </label>
+            {err && <Typography>{err}</Typography>}
             <Button
               sx={{
                 backgroundColor:'#3180b5',
@@ -118,6 +178,7 @@ const Register = () => {
                   backgroundColor:'#195882'
                 }
               }}
+              type='submit'
             >
               Signup
             </Button>
@@ -135,4 +196,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default Register;
