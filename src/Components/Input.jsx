@@ -26,7 +26,8 @@ const Input = () => {
         sx={{
           display:'flex',
           flexDirection:'column',
-          justifyContent:'space-between'
+          justifyContent:'center',
+          alignItems:'center'
         }}
       >
         <input
