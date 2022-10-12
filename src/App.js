@@ -23,7 +23,8 @@ function App() {
           accessToken:user.accessToken,
           displayName:user.displayName,
           email:user.email,
-          uid:user.uid
+          uid:user.uid,
+          photoURL:user.photoURL
         }));
       }
       else {

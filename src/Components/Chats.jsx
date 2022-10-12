@@ -7,7 +7,7 @@ const Chats = () => {
        <Box
         sx={{
           padding:'5px',
-          display:'flex', 
+          display:'flex',
           alignItems:'center',
           gap:2,
           '&:hover':{

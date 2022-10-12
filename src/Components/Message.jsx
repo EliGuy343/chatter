@@ -21,11 +21,12 @@ const Message = () => {
           width:'40px',
           height:'40px',
           borderRadius:'50%',
-
-
+          display:'flex',
+          flexDirection:'column',
+          alignItems:'center',
         }}
       >
-        <Avatar 
+        <Avatar
           alt='Obi Wan Kenobi'
           src='/static/obiwan.jpg'
           sx={{
@@ -37,6 +38,7 @@ const Message = () => {
             color:'#777777',
             fontWeight:'300',
             fontSize:"12px",
+            marginLeft:'8px'
           }}
         >
           Just now
