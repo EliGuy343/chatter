@@ -9,7 +9,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
-  const [err, setErr] = useState(null); 
+  const [err, setErr] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -29,7 +29,7 @@ const Register = () => {
         (snapshot) => {
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log(`upload is ${progress} done`);
-          
+
           switch(snapshot.state) {
             case "paused":
               console.log('upload is  paused');
@@ -88,16 +88,16 @@ const Register = () => {
         }}
       >
         <form onSubmit={handleSubmit}>
-          <Box 
+          <Box
             sx={{
-              display:'flex', 
+              display:'flex',
               flexDirection:'column',
               gap:'15px',
               padding:'20px 60px',
               width:'60vh'
             }}
-          > 
-            <Typography 
+          >
+            <Typography
               sx={{
                 display: 'flex',
                 alignItems:'center',
@@ -107,7 +107,7 @@ const Register = () => {
                 color:'#3180b5',
               }}
             >
-              <TextsmsIcon 
+              <TextsmsIcon
                 sx={{
                   color:'#3180b5',
                   marginRight:'5px',
@@ -124,7 +124,7 @@ const Register = () => {
             >
               Register
             </Typography>
-            <TextField 
+            <TextField
               variant='standard'
               type='text'
               label='name'

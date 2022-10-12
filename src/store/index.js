@@ -3,7 +3,13 @@ import {configureStore, createSlice} from '@reduxjs/toolkit';
 const userSlice = createSlice({
   name: 'user',
   initialState: {
-    user: null
+    user: {
+      accessToken:null,
+      displayName:null,
+      email:null,
+      uid:null,
+      photoURL:null
+    }
   },
   reducers: {
     changeUserState(state, action) {

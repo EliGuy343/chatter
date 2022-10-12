@@ -6,6 +6,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate,
 } from 'react-router-dom';
 import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -28,7 +29,13 @@ function App() {
         }));
       }
       else {
-        dispatch(changeUserState(null));
+        dispatch(changeUserState({
+          accessToken:null,
+          displayName:null,
+          email:null,
+          uid:null,
+          photoURL:null
+        }));
       }
     });
 
@@ -38,12 +45,26 @@ function App() {
   },[]);
 
   const user = useSelector(state =>state.user.user);
+
+  const ProtectedRoute = ({children}) => {
+    if(!user.accessToken) {
+      return <Navigate to='/login'/>
+    }
+  }
+
   console.log(user);
   return (
     <BrowserRouter>
     <Routes>
       <Route>
-        <Route index element={<Home/>} />
+        <Route
+          index
+          element={
+            <ProtectedRoute>
+              <Home/>
+            </ProtectedRoute>
+          }
+        />
         <Route path='login' element={<Login/>}/>
         <Route path='register' element={<Register/>}/>
       </Route>
