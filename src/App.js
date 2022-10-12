@@ -28,7 +28,7 @@ function App() {
         }));
       }
       else {
-        dispatch(changeUserState({}));
+        dispatch(changeUserState(null));
       }
     });
 
