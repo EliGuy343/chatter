@@ -1,8 +1,10 @@
-import { Avatar, Box, formGroupClasses, TextField, Typography } from '@mui/material';
+import { Avatar, Box, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
-import {collection, getDocs, query, where} from "firebase/firestore";
+import {collection, doc, getDoc, getDocs, query, serverTimestamp, setDoc, updateDoc, where} from "firebase/firestore";
 import { db } from '../firebase';
+import { useSelector } from 'react-redux';
 const Search = () => {
+  const currentUser = useSelector(state=>state.user.user);
   const [username, setUsername] = useState();
   const [user, setUser] = useState();
   const [err, setErr] = useState();
@@ -22,6 +24,41 @@ const Search = () => {
       console.log(err);
       setErr(err);
     }
+  }
+
+  const handleSelect = async () => {
+    const combineId =
+    currentUser.uid > user.uid
+    ? currentUser.uid + user.uid
+    : user.uid + currentUser.uid;
+    try {
+      const res = await getDoc(doc(db, "chats", combineId));
+      if(!res.exists()) {
+        await setDoc(doc(db, "chats", combineId), {messages:[]});
+
+        await updateDoc(doc(db, "userChats", currentUser.uid), {
+          [combineId+"userInfo"]:{
+            uid: user.uid,
+            displayName: user.displayName,
+            photoURL: user.photoURL
+          },
+          [combineId+".date"]: serverTimestamp()
+        });
+        await updateDoc(doc(db, "userChats", user.uid), {
+          [combineId+"userInfo"]:{
+            uid: currentUser.uid,
+            displayName: currentUser.displayName,
+            photoURL: currentUser.photoURL
+          },
+          [combineId+".date"]: serverTimestamp()
+        });
+      }
+    }
+    catch (err) {
+      console.log(err);
+      setErr(err);
+    }
+
   }
   const handleKey = (e) => {
     e.code === "Enter" && handeSearch();
@@ -62,6 +99,7 @@ const Search = () => {
             backgroundColor:'#414970'
           }
         }}
+        onClick={handleSelect}
       >
         <Avatar alt={user.displayName} src={user.photoURL}/>
         <Typography
