@@ -12,9 +12,11 @@ import MenuItem from '@mui/material/MenuItem';
 import TextsmsIcon from '@mui/icons-material/Textsms';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const user = useSelector(state => state.user.user);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -74,7 +76,7 @@ const Navbar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt={user.name} src={user.photoURL} />
               </IconButton>
             </Tooltip>
             <Menu
