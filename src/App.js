@@ -12,7 +12,8 @@ import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 import { useDispatch, useSelector } from 'react-redux';
-import {changeUserState} from './store/index'
+import {LoginUser, LogoutUser} from './store/index'
+import { Typography } from '@mui/material';
 
 function App() {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ function App() {
   useEffect(()=>{
     const unsub = onAuthStateChanged(auth,(user)=>{
       if(user) {
-        dispatch(changeUserState({
+        dispatch(LoginUser({
           accessToken:user.accessToken,
           displayName:user.displayName,
           email:user.email,
@@ -29,13 +30,7 @@ function App() {
         }));
       }
       else {
-        dispatch(changeUserState({
-          accessToken:null,
-          displayName:null,
-          email:null,
-          uid:null,
-          photoURL:null
-        }));
+        dispatch(LogoutUser());
       }
     });
 
@@ -47,9 +42,17 @@ function App() {
   const user = useSelector(state =>state.user.user);
 
   const ProtectedRoute = ({children}) => {
+    if(user.loading) {
+      return (
+        <Typography>
+          Loading...
+        </Typography>
+      );
+    }
     if(!user.accessToken) {
       return <Navigate to='/login'/>
     }
+    return children;
   }
 
   console.log(user);

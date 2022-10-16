@@ -1,9 +1,30 @@
 import { Box, Button, TextField, Typography } from '@mui/material'
 import TextsmsIcon from '@mui/icons-material/Textsms';
 import ImageIcon from '@mui/icons-material/Image';
-import React from 'react'
+import React, { useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase';
 
 const Login = () => {
+  const [err, setErr] = useState(null);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const email = e.target[0].value;
+    const password = e.target[1].value;
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate("/");
+    }
+    catch (err) {
+      setErr(err);
+      console.log(err);
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -23,17 +44,17 @@ const Login = () => {
           boxShadow:"2px 0px 2px 0px"
         }}
       >
-        <form>
-          <Box 
+        <form onSubmit={handleSubmit}>
+          <Box
             sx={{
-              display:'flex', 
+              display:'flex',
               flexDirection:'column',
               gap:'15px',
               padding:'20px 60px',
               width:'60vh'
             }}
-          > 
-            <Typography 
+          >
+            <Typography
               sx={{
                 display: 'flex',
                 alignItems:'center',
@@ -43,7 +64,7 @@ const Login = () => {
                 color:'#3180b5',
               }}
             >
-              <TextsmsIcon 
+              <TextsmsIcon
                 sx={{
                   color:'#3180b5',
                   marginRight:'5px',
@@ -76,6 +97,16 @@ const Login = () => {
                 width:'100%'
               }}
             />
+            {err &&
+              <Typography
+                sx={{
+                  color:'red',
+                  fontsize:'20'
+                }}
+              >
+                Something went wrong
+              </Typography>
+            }
             <Button
               sx={{
                 backgroundColor:'#3180b5',
@@ -84,6 +115,7 @@ const Login = () => {
                   backgroundColor:'#195882'
                 }
               }}
+              type='submit'
             >
               Login
             </Button>
@@ -92,7 +124,7 @@ const Login = () => {
                 color:'#3180b5'
               }}
             >
-              Don't Have an Account? Register.
+              Don't Have an Account? <Link to='/register'>Register</Link>
             </Typography>
           </Box>
         </form>

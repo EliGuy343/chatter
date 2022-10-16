@@ -6,7 +6,7 @@ import ImageIcon from '@mui/icons-material/Image';
 import React, { useState } from 'react'
 import {ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { doc, setDoc } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Register = () => {
   const [err, setErr] = useState(null);
@@ -174,7 +174,16 @@ const Register = () => {
                 />
               </Box>
             </label>
-            {err && <Typography>{err}</Typography>}
+            {err &&
+              <Typography
+                sx={{
+                  color:'red',
+                  fontsize:'20'
+                }}
+              >
+                Something went wrong
+              </Typography>
+            }
             <Button
               sx={{
                 backgroundColor:'#3180b5',
@@ -192,7 +201,7 @@ const Register = () => {
                 color:'#3180b5'
               }}
             >
-              Have an account? login
+              Have an account? <Link to='/login'>login</Link>
             </Typography>
           </Box>
         </form>

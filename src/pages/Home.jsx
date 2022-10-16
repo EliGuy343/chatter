@@ -1,11 +1,16 @@
 import { Box } from '@mui/material';
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Chat from '../Components/Chat';
 import Sidebar from '../Components/Sidebar';
 
 const Home = () => {
+  const navigate = useNavigate();
+  const user = useSelector(state =>state.user.user);
+
   return (
-    <Box 
+    <Box
       sx={{
         backgroundColor:'#191538',
         height:'100vh',
