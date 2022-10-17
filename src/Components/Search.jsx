@@ -31,27 +31,30 @@ const Search = () => {
     currentUser.uid > user.uid
     ? currentUser.uid + user.uid
     : user.uid + currentUser.uid;
+
     try {
       const res = await getDoc(doc(db, "chats", combineId));
       if(!res.exists()) {
         await setDoc(doc(db, "chats", combineId), {messages:[]});
 
         await updateDoc(doc(db, "userChats", currentUser.uid), {
-          [combineId+"userInfo"]:{
+          [combineId+".userInfo"]:{
             uid: user.uid,
             displayName: user.displayName,
             photoURL: user.photoURL
           },
-          [combineId+".date"]: serverTimestamp()
-        });
+          [combineId+".date"]: serverTimestamp()});
+
         await updateDoc(doc(db, "userChats", user.uid), {
           [combineId+"userInfo"]:{
             uid: currentUser.uid,
             displayName: currentUser.displayName,
             photoURL: currentUser.photoURL
           },
-          [combineId+".date"]: serverTimestamp()
-        });
+          [combineId+".date"]: serverTimestamp()});
+
+          setUser(null);
+          setUsername("");
       }
     }
     catch (err) {
@@ -86,6 +89,7 @@ const Search = () => {
         }}
         onChange={(e) => setUsername(e.target.value)}
         onKeyDown={handleKey}
+        value={username}
       />
       </Box>
       {err && <Typography>User not Found</Typography>}
