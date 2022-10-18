@@ -24,7 +24,6 @@ export default function ButtonAppBar() {
         sx={{
           backgroundColor:'#1c2c66',
           boxShadow:'2px 2px 2px 2px #000',
-      
         }}
       >
         <Toolbar
@@ -60,7 +59,7 @@ export default function ButtonAppBar() {
                 color: 'white',
                 p:0
               }}
-            >  
+            >
               <VideoCallIcon/>
             </Button>
             <Tooltip title="Open settings">

@@ -1,9 +1,21 @@
 import { Avatar, Box, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
-import {collection, doc, getDoc, getDocs, query, serverTimestamp, setDoc, updateDoc, where} from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+  where
+} from "firebase/firestore";
 import { db } from '../firebase';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
 const Search = () => {
+  const dispatch = useDispatch();
   const currentUser = useSelector(state=>state.user.user);
   const [username, setUsername] = useState();
   const [user, setUser] = useState();
@@ -52,7 +64,6 @@ const Search = () => {
             photoURL: currentUser.photoURL
           },
           [combineId+".date"]: serverTimestamp()});
-
           setUser(null);
           setUsername("");
       }

@@ -55,7 +55,6 @@ function App() {
     return children;
   }
 
-  console.log(user);
   return (
     <BrowserRouter>
     <Routes>

@@ -1,12 +1,14 @@
 import { Avatar, Box, Typography } from '@mui/material'
-import { doc, onSnapshot, setDoc } from 'firebase/firestore';
+import { doc, onSnapshot} from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { db } from '../firebase';
+import { changeUserChat } from '../store';
 
 const Chats = () => {
   const [chats, setChats] = useState([]);
   const currentUser = useSelector(state=>state.user.user);
+  const dispatch = useDispatch();
 
   useEffect(()=>{
     const getchats = () =>{
@@ -20,22 +22,33 @@ const Chats = () => {
     }
     currentUser.uid && getchats();
   },[currentUser.uid]);
-  console.log(chats);
+
+  const handleSelect = (user) => {
+    console.log("enter handleSelect")
+    dispatch(changeUserChat({
+      user,
+      chatId: currentUser.uid > user.uid
+        ? currentUser.uid + user.uid
+        : user.uid + currentUser.uid
+    }));
+  }
+
   return (
     <Box>
       {Object.entries(chats)?.map((chat) =>{
         return(
         <Box
-          sx={{
-            padding:'5px',
-            display:'flex',
-            alignItems:'center',
-            gap:2,
-            '&:hover':{
-              backgroundColor:'#414970'
-            }
-          }}
-          key={chat[0]}
+        onClick={() => handleSelect(chat[1].userInfo)}
+        sx={{
+          padding:'5px',
+          display:'flex',
+          alignItems:'center',
+          gap:2,
+          '&:hover':{
+            backgroundColor:'#414970'
+          }
+        }}
+        key={chat[0]}
         >
           <Avatar
             alt={chat[1].userInfo.displayName}
