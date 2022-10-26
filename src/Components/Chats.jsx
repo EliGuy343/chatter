@@ -34,7 +34,7 @@ const Chats = () => {
 
   return (
     <Box>
-      {Object.entries(chats)?.map((chat) =>{
+      {Object.entries(chats)?.sort((a,b)=>b[1].date - a[1].date).map((chat) =>{
         return(
         <Box
         onClick={() => handleSelect(chat[1].userInfo)}
@@ -74,7 +74,7 @@ const Chats = () => {
                 color:'#777777'
               }}
             >
-              {chat[1].userInfo.lastMessage?.text}
+              {chat[1].lastMessage?.text}
             </Typography>
           </Box>
         </Box>

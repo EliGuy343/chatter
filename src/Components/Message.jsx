@@ -1,22 +1,38 @@
 import { Avatar, Box, Typography } from '@mui/material'
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 //TODO: When it's the user message change color of message background,
 //JustifyContent to End and flexDirection to row-reverse
 
-const Message = ({message}) => {
-  console.log(message)
+const userDisplay = {
+  display:'flex',
+  flexDirection:'row-reverse',
+  justifyContent:'End',
+  alignItems: 'top',
+  gap:'20px',
+  marginBottom:'20px',
+}
 
+const senderDisplay = {
+  display:'flex',
+  flexDirection:'row',
+  justifyContent:'start',
+  alignItems: 'top',
+  gap:'20px',
+  marginBottom:'20px',
+}
+
+const Message = ({message}) => {
+  const currentUser = useSelector(state=> state.user.user)
+  const chat = useSelector(state => state.chat)
+  console.log(message)
   return (
     <Box
-      sx={{
-        display:'flex',
-        flexDirection:'row',
-        justifyContent:'start',
-        alignItems: 'top',
-        gap:'20px',
-        marginBottom:'20px',
-      }}
+      sx={message.senderId === currentUser.uid
+        ? userDisplay
+        : senderDisplay
+      }
     >
       <Box
         sx={{
@@ -29,8 +45,11 @@ const Message = ({message}) => {
         }}
       >
         <Avatar
-          alt='Obi Wan Kenobi'
-          src='/static/obiwan.jpg'
+          src={
+            message.senderId === currentUser.uid
+              ? currentUser.photoURL
+              : chat.user.photoURL
+          }
           sx={{
             boxShadow:"0 3px 10px rgb(0 0 0 / 0.2)"
           }}
@@ -64,15 +83,14 @@ const Message = ({message}) => {
             boxShadow:"0 3px 10px rgb(0 0 0 / 0.2)"
           }}
         >
-          Let's write something longer and see what it's like.
-          Maybe a little more?
+          {message.text}
         </Typography>
-        <img
-          src='https://image.shutterstock.com/image-vector/sample-stamp-rubber-style-red-260nw-1811246308.jpg'
+        {message.img && <img
+          src={message.img}
           style={{
             width:'50%'
           }}
-        />
+        />}
       </Box>
     </Box>
   )
