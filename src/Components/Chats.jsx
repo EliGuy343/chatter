@@ -24,7 +24,6 @@ const Chats = () => {
   },[currentUser.uid]);
 
   const handleSelect = (user) => {
-    console.log("enter handleSelect")
     dispatch(changeUserChat({
       user,
       chatId: currentUser.uid > user.uid

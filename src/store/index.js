@@ -50,7 +50,7 @@ export const {changeUserChat} = chatSlice.actions;
 
 export const store = configureStore({
   reducer: {
-  user: userSlice.reducer,
-  chat: chatSlice.reducer
+    user: userSlice.reducer,
+    chat: chatSlice.reducer
   }
 });
