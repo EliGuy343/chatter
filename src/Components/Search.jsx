@@ -12,10 +12,9 @@ import {
   where
 } from "firebase/firestore";
 import { db } from '../firebase';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector} from 'react-redux';
 
 const Search = () => {
-  const dispatch = useDispatch();
   const currentUser = useSelector(state=>state.user.user);
   const [username, setUsername] = useState();
   const [user, setUser] = useState();

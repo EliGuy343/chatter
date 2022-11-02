@@ -91,6 +91,7 @@ const Message = ({message}) => {
         </Typography>
         {message.img && <img
           src={message.img}
+          alt=''
           style={{
             width:'50%'
           }}

@@ -6,10 +6,10 @@ import { db } from '../firebase';
 import Message from './Message'
 
 const Messages = () => {
-  let unSub;
   const [messages, setMessages] = useState([]);
   const chatId = useSelector(state=>state.chat.chatId);
   useEffect(() => {
+    let unSub;
     if(chatId) {
       unSub = onSnapshot(doc(db, "chats", chatId), (doc)=>{
         doc.exists() && setMessages(doc.data().messages)

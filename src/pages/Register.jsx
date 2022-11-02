@@ -17,7 +17,6 @@ const Register = () => {
     const name = e.target[0].value;
     const email = e.target[1].value;
     const password = e.target[2].value;
-    const passwordConfirm = e.target[3].value;
     const file = e.target[4].files[0];
 
     try {
@@ -37,11 +36,12 @@ const Register = () => {
             case "running":
               console.log('upload is running');
               break;
+            default:
+              break;
           }
         },
         (err) => {
           setErr(err);
-          console.log(err);
         },
         ()  => {
           getDownloadURL(uploadTask.snapshot.ref)

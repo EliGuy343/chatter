@@ -37,6 +37,7 @@ function App() {
     return () => {
       unsub();
     }
+    //eslint-disable-next-line
   },[]);
 
   const user = useSelector(state =>state.user.user);
