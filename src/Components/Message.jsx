@@ -1,9 +1,6 @@
 import { Avatar, Box, Typography } from '@mui/material'
-import React from 'react'
+import { useRef, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-
-//TODO: When it's the user message change color of message background,
-//JustifyContent to End and flexDirection to row-reverse
 
 const userDisplay = {
   display:'flex',
@@ -24,15 +21,21 @@ const senderDisplay = {
 }
 
 const Message = ({message}) => {
+
+  const ref = useRef();
   const currentUser = useSelector(state=> state.user.user)
   const chat = useSelector(state => state.chat)
-  console.log(message)
+
+  useEffect(()=>{
+    ref.current?.scrollIntoView({behavior:'smooth'})
+  },[message])
   return (
     <Box
       sx={message.senderId === currentUser.uid
         ? userDisplay
         : senderDisplay
       }
+      ref={ref}
     >
       <Box
         sx={{
@@ -42,6 +45,7 @@ const Message = ({message}) => {
           display:'flex',
           flexDirection:'column',
           alignItems:'center',
+          marginBottom:'15px'
         }}
       >
         <Avatar
@@ -59,7 +63,7 @@ const Message = ({message}) => {
             color:'#777777',
             fontWeight:'300',
             fontSize:"12px",
-            marginLeft:'8px'
+            marginLeft:'8px',
           }}
         >
           Just now
