@@ -26,19 +26,7 @@ const Register = () => {
       uploadTask.on(
         "state_changed",
         (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(`upload is ${progress} done`);
-
-          switch(snapshot.state) {
-            case "paused":
-              console.log('upload is  paused');
-              break;
-            case "running":
-              console.log('upload is running');
-              break;
-            default:
-              break;
-          }
+          console.log(`upload is...`);
         },
         (err) => {
           setErr(err);
